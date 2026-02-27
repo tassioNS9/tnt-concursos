@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {},
   serverExternalPackages: ["@prisma/client", "prisma"],
   outputFileTracingIncludes: {
-    "/api/**/*": ["../src/generated/prisma/**/*"],
+    "/api/**/*": ["../src/app/generated/prisma/**/*"],
   },
 };
 
