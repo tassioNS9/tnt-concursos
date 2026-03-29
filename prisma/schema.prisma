@@ -12,7 +12,38 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
 
+model Question {
+  id           String        @id
+  statement    String        @db.Text
+  discipline   String
+  year         Int
+  organ        String
+  position     String
+  jury         String
+  explanation  String?       @db.Text
+  type         QuestionType
+  alternatives Alternative[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+}
+
+model Alternative {
+  id         String   @id
+  letter     String   @db.Char(1)
+  text       String   @db.Text
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  isCorrect  Boolean
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+}
+
+enum QuestionType {
+  MULTIPLE4
+  MULTIPLE5
+  TRUE_FALSE
 }
 
 model User {
