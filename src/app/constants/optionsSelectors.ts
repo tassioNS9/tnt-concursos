@@ -1,12 +1,14 @@
-export const disciplinas = [
-  "Administração de Recursos Materiais",
-  "Administração Geral e Pública",
-  "Administração Pública",
-  "AFO e Direito Financeiro",
-  "Agronomia (Engenharia Agronômica)",
+export const disciplines = [
+  "Português",
+  "Matemática",
+  "Informática",
+  "Direito Constitucional",
+  "Raciocínio Lógico",
+  "Direito Administrativo",
+  "Direito Penal",
 ];
 
-export const ano = [
+export const years = [
   "2017",
   "2018",
   "2019",
@@ -16,4 +18,22 @@ export const ano = [
   "2023",
   "2024",
   "2025",
+];
+
+export const jurys = ["CESPE", "FCC", "FGV", "VUNESP", "IBFC", "IBAM"];
+
+export const organs = [
+  "Prefeitura Municipal de Salvador",
+  "Prefeitura Municipal de Feira de Santana",
+  "Prefeitura Municipal de Camaçari",
+  "Prefeitura Municipal de Lauro de Freitas",
+  "Prefeitura Municipal de Ilhéus",
+];
+
+export const positions = [
+  "Assistente Administrativo",
+  "Auxiliar Administrativo",
+  "Técnico de TI",
+  "Procurador",
+  "Assistente",
 ];
