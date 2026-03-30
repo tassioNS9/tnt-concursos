@@ -1,14 +1,17 @@
 "use client";
 
 import { useFiltroStore } from "@/app/store/filterQuestions";
-import { Button } from "@/components/ui/button";
 import { Chip } from "./chip";
 
 export function FilterChips() {
-  const { filtros, toggleFiltro, limpar } = useFiltroStore();
+  const { filtros, toggleFiltro } = useFiltroStore();
 
   const temFiltros =
-    filtros.discipline.length || filtros.jury.length || filtros.year.length;
+    filtros.discipline.length ||
+    filtros.jury.length ||
+    filtros.year.length ||
+    filtros.organ.length ||
+    filtros.position.length;
 
   if (!temFiltros) return null;
 
@@ -41,8 +44,23 @@ export function FilterChips() {
         />
       ))}
 
-      {/* Limpar tudo */}
-      <Button onClick={limpar}>Limpar filtros</Button>
+      {/* Orgão */}
+      {filtros.organ.map((o) => (
+        <Chip
+          key={`organ-${o}`}
+          label={o}
+          onRemove={() => toggleFiltro("organ", o)}
+        />
+      ))}
+
+      {/* Cargo */}
+      {filtros.position.map((p) => (
+        <Chip
+          key={`position-${p}`}
+          label={p}
+          onRemove={() => toggleFiltro("position", p)}
+        />
+      ))}
     </div>
   );
 }

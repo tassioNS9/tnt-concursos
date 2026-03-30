@@ -21,13 +21,13 @@ export const FiltersQuestions = () => {
   const toggleFiltro = useFiltroStore((state) => state.toggleFiltro);
 
   return (
-    <div className="flex w-full flex-col px-2">
-      <h2 className="flex items-center gap-2 text-2xl font-bold">
+    <div className="flex w-full flex-col px-4">
+      <h2 className="text-dark-var-1-color flex items-center gap-2 text-2xl font-bold">
         {" "}
         <ArrowLeft color="orange" />
         Questões de Concursos
       </h2>
-      <div className="mt-8 flex w-full flex-col gap-4 rounded bg-[#e5e1e1] px-2 py-3">
+      <div className="bg-foreground mt-8 flex w-full flex-col gap-4 rounded px-4 py-3">
         <div className="relative flex items-center">
           <Search className="absolute left-2" color="#878282" size="16" />
           <Input
