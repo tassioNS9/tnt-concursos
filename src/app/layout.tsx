@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Create Next App",
-  description: "TNT Concursos",
+  title: "TNT Concursos",
+  description: "Sua Plataforma de Estudos para Concursos Públicos",
 };
 
 export default function RootLayout({
