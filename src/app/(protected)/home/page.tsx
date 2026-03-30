@@ -6,7 +6,7 @@ import QuestionItem from "./components/question-item";
 export default function Home() {
   const { data: questions } = useGetQuestions();
   return (
-    <div className="mx-auto flex w-full flex-col items-center p-8 lg:px-20">
+    <div className="mx-auto flex w-full flex-col items-center p-8 lg:w-[80%] lg:px-20">
       <FiltersQuestions />
       <div className="mt-6 flex w-full flex-col items-center gap-4 md:px-16">
         {questions?.map((question) => (
