@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Search, ArrowLeft } from "lucide-react";
 import { useFiltroStore } from "@/app/store/filterQuestions";
 import { FilterChips } from "../../components/filter-chips";
+
 export const FiltersQuestions = () => {
   const setDiscipline = useFiltroStore((state) => state.filtros.discipline);
   const setJury = useFiltroStore((state) => state.filtros.jury);
@@ -19,6 +20,20 @@ export const FiltersQuestions = () => {
   const setOrgan = useFiltroStore((state) => state.filtros.organ);
   const setPosition = useFiltroStore((state) => state.filtros.position);
   const toggleFiltro = useFiltroStore((state) => state.toggleFiltro);
+  const limpar = useFiltroStore((state) => state.limpar);
+  const fetchQuestions = useFiltroStore((state) => state.fetchQuestions);
+  const setSearch = useFiltroStore((state) => state.setSearch);
+  const search = useFiltroStore((state) => state.search);
+  const total = useFiltroStore((state) => state.total);
+  const isLoading = useFiltroStore((state) => state.isLoading);
+
+  const handleFilter = async () => {
+    await fetchQuestions();
+  };
+
+  const handleClear = () => {
+    limpar();
+  };
 
   return (
     <div className="flex w-full flex-col px-4">
@@ -32,12 +47,14 @@ export const FiltersQuestions = () => {
           <Search className="absolute left-2" color="#878282" size="16" />
           <Input
             type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             className="border-border bg-white px-7"
             placeholder="Enuciado ou código da questão"
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
           <MultiSelect
             label="Disciplinas"
             options={disciplines}
@@ -80,15 +97,24 @@ export const FiltersQuestions = () => {
           </span>
         </h3>
         <div className="flex justify-end">
-          <Button className="pointer" variant="link">
+          <Button className="pointer" variant="link" onClick={handleClear}>
             Limpar
           </Button>
-          <Button className="pointer" variant="default">
-            Filtrar Filtros
+          <Button
+            className="pointer"
+            variant="default"
+            onClick={handleFilter}
+            disabled={isLoading}
+          >
+            {isLoading ? "Carregando..." : "Filtrar"}
           </Button>
         </div>
       </div>
-      <h3 className="mt-3 w-full px-2">299.411 questões encontradas</h3>
+      <h3 className="mt-3 w-full px-2">
+        {isLoading
+          ? "Carregando..."
+          : `${total.toLocaleString("pt-BR")} questões encontradas`}
+      </h3>
     </div>
   );
 };

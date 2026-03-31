@@ -1,6 +1,5 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
 import { Alternative } from "../../../generated/prisma/client";
 import { Button } from "@/components/ui/button";
 import * as React from "react";
@@ -9,13 +8,12 @@ import { useQuery } from "@tanstack/react-query";
 interface Question {
   id: string;
   statement: string;
-  year: number;
-  jury: string;
-  position: string;
-  organ: string;
   discipline: string;
+  jury: string;
+  organ: string;
+  position: string;
+  year: number;
   alternatives: Alternative[];
-  //onClick: (alternativeId: string) => void;
 }
 
 const QuestionItem = ({ question }: { question: Question }) => {
@@ -45,12 +43,18 @@ const QuestionItem = ({ question }: { question: Question }) => {
     console.log(answerData, "answerData");
   };
   return (
-    <Card className="flex flex-col px-4 py-3">
-      <div className="bg-foreground flex-col gap-2 rounded-2xl px-4 py-2 md:grid md:grid-cols-2">
+    <div className="flex flex-col gap-4 space-y-2 px-3 py-3">
+      <div className="bg-foreground mt-6 flex-col gap-2 rounded-2xl px-4 py-2 md:grid md:grid-cols-2">
         <h3 className="text-dark-var-1-color font-bold">
           Ano:{" "}
           <span className="text-dark-var-3-color font-semibold">
             {question.year}
+          </span>
+        </h3>
+        <h3 className="text-dark-var-1-color font-bold">
+          Disciplina:{" "}
+          <span className="text-dark-var-3-color font-semibold">
+            {question.discipline}
           </span>
         </h3>
         <h3 className="text-dark-var-1-color font-bold">
@@ -73,22 +77,25 @@ const QuestionItem = ({ question }: { question: Question }) => {
           </span>{" "}
         </h3>
       </div>
-      <p className="text-dark-var-1-color flex font-semibold">
+      <p className="text-dark-var-1-color flex text-start font-semibold">
         {question.statement}
       </p>
       <div className="flex flex-col gap-2">
-        {question.alternatives.map((alternative) => (
+        {question?.alternatives.map((alternative) => (
           <Button
             disabled={isAnswerRevealed}
             onClick={() => handleSelectClick(alternative.id)}
             variant="secondary"
-            className={` ${selectedAlternative === alternative.id ? "bg-primary text-primary-foreground" : `${answerData?.id === alternative.id && answerData?.isCorrect ? "bg-amber-900" : ""}hover:border-dark-blue-1-color`} hover:bg-primary flex w-full flex-row items-center justify-start gap-2 px-3 py-8 hover:cursor-pointer`}
+            className={`h-full px-3 py-0 whitespace-normal ${selectedAlternative === alternative.id ? "bg-primary text-primary-foreground" : "hover:border-dark-blue-1-color"} hover:bg-primary flex w-full items-center justify-start gap-2 py-8 hover:cursor-pointer`}
             key={alternative.id}
           >
-            <div className="bg-foreground flex h-8 w-8 items-center justify-center rounded-4xl">
-              {alternative.letter}
+            <div>
+              <div className="bg-foreground flex h-8 w-8 items-center justify-center rounded-4xl">
+                {alternative.letter}
+              </div>
             </div>
-            {alternative.text}
+
+            <p className="flex text-start">{alternative.text}</p>
           </Button>
         ))}
       </div>
@@ -108,7 +115,7 @@ const QuestionItem = ({ question }: { question: Question }) => {
           Ver Resposta
         </Button>
       </div>
-    </Card>
+    </div>
   );
 };
 
