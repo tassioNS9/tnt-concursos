@@ -89,10 +89,8 @@ const QuestionItem = ({ question }: { question: Question }) => {
             className={`h-full px-3 py-0 whitespace-normal ${selectedAlternative === alternative.id ? "bg-primary text-primary-foreground" : "hover:border-dark-blue-1-color"} hover:bg-primary flex w-full items-center justify-start gap-2 py-8 hover:cursor-pointer`}
             key={alternative.id}
           >
-            <div>
-              <div className="bg-foreground flex h-8 w-8 items-center justify-center rounded-4xl">
-                {alternative.letter}
-              </div>
+            <div className="bg-foreground flex h-8 w-8 items-center justify-center rounded-full">
+              {alternative.letter}
             </div>
 
             <p className="flex text-start">{alternative.text}</p>
