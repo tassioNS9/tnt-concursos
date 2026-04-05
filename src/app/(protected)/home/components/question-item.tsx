@@ -5,18 +5,20 @@ import { Button } from "@/components/ui/button";
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 
-interface Question {
-  id: string;
-  statement: string;
-  discipline: string;
-  jury: string;
-  organ: string;
-  position: string;
-  year: number;
-  alternatives: Alternative[];
+interface QuestionItemProps {
+  question: {
+    id: string;
+    statement: string;
+    discipline: string;
+    jury: string;
+    organ: string;
+    position: string;
+    year: number;
+    alternatives: Alternative[];
+  };
 }
 
-const QuestionItem = ({ question }: { question: Question }) => {
+const QuestionItem = ({ question }: QuestionItemProps) => {
   const [selectedAlternative, setSelectedAlternative] = React.useState<
     string | null
   >(null);
@@ -31,7 +33,6 @@ const QuestionItem = ({ question }: { question: Question }) => {
     queryKey: ["answer", selectedAlternative],
     queryFn: async ({ queryKey }) => {
       const [, id] = queryKey;
-      console.log(id, "teste");
       const res = await fetch(`/api/alternative/${id}`);
       return res.json();
     },
@@ -40,7 +41,6 @@ const QuestionItem = ({ question }: { question: Question }) => {
 
   const handleRevealAnswer = () => {
     setIsAnswerRevealed(true);
-    console.log(answerData, "answerData");
   };
   return (
     <div className="flex flex-col gap-4 space-y-2 px-3 py-3">
