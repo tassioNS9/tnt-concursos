@@ -1,5 +1,5 @@
 "use client";
-import { MultiSelect } from "../../components/multiselect";
+import { MultiSelect } from "./multiselect";
 import {
   disciplines,
   years,
@@ -11,29 +11,43 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, ArrowLeft } from "lucide-react";
 import { useFiltroStore } from "@/app/store/filterQuestions";
-import { FilterChips } from "../../components/filter-chips";
+import { FilterChips } from "./filter-chips";
 
-export const FiltersQuestions = () => {
-  const setDiscipline = useFiltroStore((state) => state.filtros.discipline);
-  const setJury = useFiltroStore((state) => state.filtros.jury);
-  const setYear = useFiltroStore((state) => state.filtros.year);
-  const setOrgan = useFiltroStore((state) => state.filtros.organ);
-  const setPosition = useFiltroStore((state) => state.filtros.position);
+interface FiltersQuestionsProps {
+  total: number;
+  isLoading: boolean;
+}
+
+export const FiltersQuestions = ({
+  total,
+  isLoading,
+}: FiltersQuestionsProps) => {
+  const discipline = useFiltroStore((state) => state.filtros.discipline);
+  const jury = useFiltroStore((state) => state.filtros.jury);
+  const year = useFiltroStore((state) => state.filtros.year);
+  const organ = useFiltroStore((state) => state.filtros.organ);
+  const position = useFiltroStore((state) => state.filtros.position);
   const toggleFiltro = useFiltroStore((state) => state.toggleFiltro);
   const limpar = useFiltroStore((state) => state.limpar);
-  const fetchQuestions = useFiltroStore((state) => state.fetchQuestions);
   const setSearch = useFiltroStore((state) => state.setSearch);
+  const triggerFetch = useFiltroStore((state) => state.triggerFetch);
   const search = useFiltroStore((state) => state.search);
-  const total = useFiltroStore((state) => state.total);
-  const isLoading = useFiltroStore((state) => state.isLoading);
-
-  const handleFilter = async () => {
-    await fetchQuestions();
-  };
 
   const handleClear = () => {
     limpar();
   };
+
+  const handleFilter = () => {
+    triggerFetch();
+  };
+
+  // Contar filtros selecionados
+  const filtrosCount =
+    discipline.length +
+    jury.length +
+    year.length +
+    organ.length +
+    position.length;
 
   return (
     <div className="flex w-full flex-col px-4">
@@ -49,7 +63,7 @@ export const FiltersQuestions = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="border-border bg-white px-7"
+            className="border-border h-12 bg-white px-7"
             placeholder="Enuciado ou código da questão"
           />
         </div>
@@ -58,45 +72,45 @@ export const FiltersQuestions = () => {
           <MultiSelect
             label="Disciplinas"
             options={disciplines}
-            value={setDiscipline}
+            value={discipline}
             onChange={(value) => toggleFiltro("discipline", value)}
           />
           <MultiSelect
             label="Ano"
             options={years}
-            value={setYear}
+            value={year}
             onChange={(value) => toggleFiltro("year", value)}
           />
           <MultiSelect
             label="Cargo"
             options={positions}
-            value={setPosition}
+            value={position}
             onChange={(value) => toggleFiltro("position", value)}
           />
           <MultiSelect
             label="Banca"
             options={jurys}
-            value={setJury}
+            value={jury}
             onChange={(value) => toggleFiltro("jury", value)}
           />
           <MultiSelect
             label="Orgão"
             options={organs}
-            value={setOrgan}
+            value={organ}
             onChange={(value) => toggleFiltro("organ", value)}
           />
         </div>
         <h3 className="text-xl">
           Filtros selecionados:
           <span className="text-muted-foreground text-sm">
-            {toggleFiltro.length === 0 ? (
-              "  os filtros aparecerão aqui"
+            {filtrosCount === 0 ? (
+              "  nenhum filtro selecionado"
             ) : (
               <FilterChips />
             )}
           </span>
         </h3>
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-2">
           <Button className="pointer" variant="link" onClick={handleClear}>
             Limpar
           </Button>
@@ -106,14 +120,12 @@ export const FiltersQuestions = () => {
             onClick={handleFilter}
             disabled={isLoading}
           >
-            {isLoading ? "Carregando..." : "Filtrar"}
+            {isLoading ? "Carregando..." : "Filtrar Questões"}
           </Button>
         </div>
       </div>
       <h3 className="mt-3 w-full px-2">
-        {isLoading
-          ? "Carregando..."
-          : `${total.toLocaleString("pt-BR")} questões encontradas`}
+        {isLoading ? "Carregando..." : `${total} questões encontradas`}
       </h3>
     </div>
   );

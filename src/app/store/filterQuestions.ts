@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { Alternative } from "../generated/prisma/client";
 
 type Filtros = {
   discipline: string[];
@@ -9,28 +8,21 @@ type Filtros = {
   year: string[];
 };
 
-type Question = {
-  id: string;
-  statement: string;
-  discipline: string;
-  jury: string;
-  organ: string;
-  position: string;
-  year: number;
-  alternatives: Alternative[];
-};
-
 type Store = {
   filtros: Filtros;
   search: string;
+  limit: number;
+  page: number;
+  orderBy: string;
   isEmpty: boolean;
-  questions: Question[];
-  total: number;
-  isLoading: boolean;
+  fetchTrigger: number;
   toggleFiltro: (key: keyof Filtros, value: string) => void;
+  toggleOrderBy: (orderBy: string) => void;
+  toggleLimit: (limit: number) => void;
   setSearch: (search: string) => void;
+  selectPage: (page: number) => void;
+  triggerFetch: () => void;
   limpar: () => void;
-  fetchQuestions: () => Promise<void>;
 };
 
 export const useFiltroStore = create<Store>((set, get) => ({
@@ -43,11 +35,12 @@ export const useFiltroStore = create<Store>((set, get) => ({
   },
   search: "",
   isEmpty: true,
-  questions: [],
-  total: 0,
-  isLoading: false,
+  limit: 1,
+  page: 1,
+  orderBy: "desc",
+  fetchTrigger: 0,
 
-  toggleFiltro: (key, value) =>
+  toggleFiltro: (key: keyof Filtros, value: string) =>
     set((state) => {
       const atual = state.filtros[key];
 
@@ -62,7 +55,13 @@ export const useFiltroStore = create<Store>((set, get) => ({
     }),
 
   setSearch: (search) => set({ search }),
-
+  toggleLimit: (limit: number) => set({ limit }),
+  toggleOrderBy: (orderBy: string) => set({ orderBy }),
+  selectPage: (page: number) => set({ page }),
+  triggerFetch: () =>
+    set((state) => ({
+      fetchTrigger: state.fetchTrigger + 1,
+    })),
   limpar: () =>
     set({
       filtros: {
@@ -75,50 +74,4 @@ export const useFiltroStore = create<Store>((set, get) => ({
       search: "",
       isEmpty: true,
     }),
-
-  fetchQuestions: async () => {
-    set({ isLoading: true });
-
-    try {
-      const state = get();
-      const params = new URLSearchParams();
-
-      // Adicionar filtros aos parâmetros
-      if (state.filtros.discipline.length > 0) {
-        params.append("discipline", state.filtros.discipline.join(","));
-      }
-      if (state.filtros.jury.length > 0) {
-        params.append("jury", state.filtros.jury.join(","));
-      }
-      if (state.filtros.organ.length > 0) {
-        params.append("organ", state.filtros.organ.join(","));
-      }
-      if (state.filtros.position.length > 0) {
-        params.append("position", state.filtros.position.join(","));
-      }
-      if (state.filtros.year.length > 0) {
-        params.append("year", state.filtros.year.join(","));
-      }
-      if (state.search) {
-        params.append("search", state.search);
-      }
-
-      const response = await fetch(`/api/questions?${params.toString()}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        set({
-          questions: data.questions,
-          total: data.total,
-          isLoading: false,
-        });
-      } else {
-        console.error("Erro ao buscar questões:", data.error);
-        set({ isLoading: false });
-      }
-    } catch (error) {
-      console.error("Erro ao buscar questões:", error);
-      set({ isLoading: false });
-    }
-  },
 }));

@@ -14,9 +14,12 @@ export async function GET(req: NextRequest) {
       searchParams.get("position")?.split(",").filter(Boolean) || [];
     const years = searchParams.get("year")?.split(",").filter(Boolean) || [];
     const search = searchParams.get("search") || "";
+    const limit = Number(searchParams.get("limit")) || 1;
+    const page = Number(searchParams.get("page")) || 1;
+    const orderBy = searchParams.get("orderBy") || "desc";
 
     // Construir o filtro where dinamicamente
-    const where: any = {};
+    const where: Record<string, unknown> = {};
 
     if (disciplines.length > 0) {
       where.discipline = { in: disciplines };
@@ -37,18 +40,14 @@ export async function GET(req: NextRequest) {
     if (years.length > 0) {
       where.year = { in: years.map(Number) };
     }
-
-    // if (search) {
-    //   where.OR = [
-    //     { statement: { contains: search, mode: "insensitive" } },
-    //     { code: { contains: search, mode: "insensitive" } },
-    //   ];
-    // }
+    if (search) {
+      where.OR = [{ statement: { contains: search } }];
+    }
 
     const questions = await prisma.question.findMany({
-      where: {
-        discipline: where.discipline,
-      },
+      where,
+      take: limit, // Limitar a 10 questões por página
+      skip: page - 1, // Pular 0 questões (página 1)
       include: {
         alternatives: {
           select: {
@@ -59,12 +58,17 @@ export async function GET(req: NextRequest) {
           },
         },
       },
+      orderBy: {
+        year: orderBy as "asc" | "desc",
+      },
     });
-    console.log(questions, "questions");
+    const total = await prisma.question.count({ where });
 
     return Response.json({
       questions,
-      total: questions.length,
+      take: limit,
+      skip: page,
+      total,
     });
   } catch (error) {
     console.error(error);
