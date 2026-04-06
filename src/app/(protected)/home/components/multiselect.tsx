@@ -39,14 +39,14 @@ export function MultiSelect({
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className="text-dark-blue-1-color w-full justify-between md:w-60 lg:w-75"
+          className="text-dark-blue-1-color h-15 w-full justify-between md:w-50 lg:w-65"
         >
           {value.length > 0 ? `${value.length} selecionada(s)` : label}
           <ChevronDown className="ml-4 h-4 w-8 opacity-50" />
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-full p-0 md:w-60 lg:w-75">
+      <PopoverContent className="w-full p-0 md:w-50 lg:w-60">
         <Command>
           <CommandInput placeholder="Buscar..." />
           <CommandEmpty>Nenhuma opção encontrada.</CommandEmpty>

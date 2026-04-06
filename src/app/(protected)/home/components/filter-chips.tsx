@@ -6,15 +6,6 @@ import { Chip } from "./chip";
 export function FilterChips() {
   const { filtros, toggleFiltro } = useFiltroStore();
 
-  const temFiltros =
-    filtros.discipline.length ||
-    filtros.jury.length ||
-    filtros.year.length ||
-    filtros.organ.length ||
-    filtros.position.length;
-
-  if (!temFiltros) return null;
-
   return (
     <div className="flex flex-wrap gap-2">
       {/* Disciplinas */}
