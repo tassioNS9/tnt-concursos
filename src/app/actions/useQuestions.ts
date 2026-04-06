@@ -16,6 +16,7 @@ export function useGetQuestions() {
       const params = new URLSearchParams();
       params.set("limit", limit.toString());
       params.set("page", page.toString());
+      params.set("orderBy", orderBy);
 
       // Adicionar filtros aos parâmetros
       if (filtros.discipline.length > 0) {
