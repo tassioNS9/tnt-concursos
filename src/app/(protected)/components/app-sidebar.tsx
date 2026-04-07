@@ -36,18 +36,18 @@ import { authClient } from "@/lib/auth-client";
 const items = [
   {
     title: "Questões",
-    url: "/questions",
+    url: "/home",
     icon: NotebookPen,
   },
   {
     title: "Dúvidas",
-    url: "/appointments",
+    url: "/doubts",
     icon: CircleQuestionMark,
   },
   {
-    title: "Pacientes",
-    url: "/patients",
-    icon: UsersRound,
+    title: "Prazos de Acesso",
+    url: "/access-periods",
+    icon: CalendarDays,
   },
 ];
 
@@ -67,18 +67,21 @@ export function AppSidebar() {
   };
   return (
     <Sidebar>
-      <SidebarHeader className="border-b p-4">
+      <SidebarHeader className="flex items-center justify-center border-b bg-white">
         <Image src="/logo.png" alt="TNT Concursos" width={136} height={25} />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="rounded-lg">
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem className="gap-4" key={item.title}>
                   <SidebarMenuButton asChild isActive={pathname === item.url}>
-                    <Link href={item.url}>
+                    <Link
+                      className="text-accent-foreground bg-amber-500 p-1"
+                      href={item.url}
+                    >
                       <item.icon />
                       <span>{item.title}</span>
                     </Link>
