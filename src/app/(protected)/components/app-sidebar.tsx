@@ -93,7 +93,7 @@ export function AppSidebar() {
         </SidebarGroup>
         <SidebarGroup>
           <SidebarGroupLabel>Outros</SidebarGroupLabel>
-          {/* <SidebarGroupContent>
+          <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuButton
                 asChild
@@ -105,7 +105,7 @@ export function AppSidebar() {
                 </Link>
               </SidebarMenuButton>
             </SidebarMenu>
-          </SidebarGroupContent> */}
+          </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
@@ -114,21 +114,12 @@ export function AppSidebar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton size="lg">
-                  <Avatar>
-                    <AvatarFallback>F</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    {/* Verificar essa parte que crachou */}
-                    <p className="text-sm">{session.data?.user?.name}</p>
-                    <p className="text-sm">{session.data?.user.email}</p>
-                  </div>
+                  <LogOut />
+                  Sair
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem onClick={handleSignOut}>
-                  <LogOut />
-                  Sair
-                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleSignOut}></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>

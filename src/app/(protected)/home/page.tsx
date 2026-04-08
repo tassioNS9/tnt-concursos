@@ -30,7 +30,7 @@ export default function Home() {
       {}
       <FiltersQuestions total={data?.total} isLoading={isLoading} />
 
-      <div className="text-dark-blue-1-color flex w-full items-center justify-between gap-4 px-4 py-2">
+      <div className="text-dark-blue-1-color flex w-full flex-col items-center justify-center gap-2 px-4 py-2 md:flex-row md:justify-between md:gap-4">
         {data?.total > 0 && (
           <PaginationComponent
             total={data?.total}
