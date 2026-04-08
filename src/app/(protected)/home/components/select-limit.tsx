@@ -18,7 +18,7 @@ export const SelectLimit = ({ limit, onChange }: SelectLimitProps) => {
       value={limit.toString()}
       onValueChange={(value) => onChange(parseInt(value))}
     >
-      <SelectTrigger className="w-60">
+      <SelectTrigger className="w-50">
         Questoes por página
         <SelectValue placeholder="Theme" />
       </SelectTrigger>

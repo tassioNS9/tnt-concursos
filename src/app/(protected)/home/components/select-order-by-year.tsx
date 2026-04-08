@@ -18,7 +18,7 @@ export const SelectOrderByYear = ({
 }: SelectOrderByYearProps) => {
   return (
     <Select value={orderBy} onValueChange={onChange}>
-      <SelectTrigger className="w-60">
+      <SelectTrigger className="w-full lg:w-50">
         <SelectValue placeholder="Theme" />
       </SelectTrigger>
       <SelectContent>

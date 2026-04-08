@@ -100,13 +100,15 @@ export const FiltersQuestions = ({
             onChange={(value) => toggleFiltro("organ", value)}
           />
         </div>
-        <h3 className="text-xl">
-          Filtros selecionados:
+        <h3 className="text-left text-xl">
           <span className="text-muted-foreground text-sm">
             {filtrosCount === 0 ? (
               "  nenhum filtro selecionado"
             ) : (
-              <FilterChips />
+              <div className="">
+                <h2>Filtros selecionados: </h2>
+                <FilterChips />
+              </div>
             )}
           </span>
         </h3>
