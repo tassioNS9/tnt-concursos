@@ -26,8 +26,7 @@ export default function Home() {
   const limit = useFiltroStore((state) => state.limit);
   const orderBy = useFiltroStore((state) => state.orderBy);
   return (
-    <div className="mx-auto flex w-full flex-col items-center p-8 lg:w-[80%] lg:px-20">
-      {}
+    <div className="mx-auto flex w-full flex-col items-center p-8 lg:w-[90%] lg:px-20">
       <FiltersQuestions total={data?.total} isLoading={isLoading} />
 
       <div className="text-dark-blue-1-color flex w-full flex-col items-center justify-center gap-2 px-4 py-2 md:flex-row md:justify-between md:gap-4">
