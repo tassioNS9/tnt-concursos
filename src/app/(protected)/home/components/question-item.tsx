@@ -85,8 +85,8 @@ const QuestionItem = ({ question }: QuestionItemProps) => {
           <Button
             disabled={isAnswerRevealed}
             onClick={() => handleSelectClick(alternative.id)}
-            variant="secondary"
-            className={`h-full px-3 py-0 whitespace-normal ${selectedAlternative === alternative.id ? "bg-primary text-primary-foreground" : "hover:border-dark-blue-1-color"} hover:bg-primary flex w-full items-center justify-start gap-2 py-8 hover:cursor-pointer`}
+            variant="ghost"
+            className={`text-dark-var-1-color h-full border-2 px-3 py-0 whitespace-normal ${selectedAlternative === alternative.id ? "bg-primary text-primary-foreground" : "hover:border-dark-blue-1-color"} hover:bg-primary flex w-full items-center justify-start gap-2 py-8 hover:cursor-pointer`}
             key={alternative.id}
           >
             <div className="bg-foreground flex h-8 w-8 items-center justify-center rounded-full">
@@ -100,7 +100,7 @@ const QuestionItem = ({ question }: QuestionItemProps) => {
       <div className="flex items-center gap-2 self-end">
         {isAnswerRevealed && answerData && (
           <p
-            className={`flex text-sm font-semibold ${answerData?.isCorrect ? "text-emerald-400" : "text-red-500"}`}
+            className={`flex text-sm font-semibold ${answerData?.isCorrect ? "text-green-400" : "text-red-500"}`}
           >
             Resposta {answerData?.isCorrect ? "Correta!" : "Errada!"}
           </p>
