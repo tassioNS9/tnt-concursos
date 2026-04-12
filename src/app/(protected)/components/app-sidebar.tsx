@@ -1,24 +1,17 @@
 "use client";
 
 import {
+  BookOpen,
   CalendarDays,
-  Gem,
-  NotebookPen,
-  LogOut,
   CircleQuestionMark,
-  UsersRound,
+  Gem,
+  LogOut,
+  Settings,
+  Trophy,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   Sidebar,
   SidebarContent,
@@ -26,18 +19,24 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader, //
+  SidebarHeader,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarSeparator,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
+import { cn } from "@/lib/utils";
 
-const items = [
+const mainItems = [
   {
     title: "Questões",
     url: "/home",
-    icon: NotebookPen,
+    icon: BookOpen,
+    badge: "150k+",
+    highlight: true,
   },
   {
     title: "Dúvidas",
@@ -48,6 +47,14 @@ const items = [
     title: "Prazos de Acesso",
     url: "/access-periods",
     icon: CalendarDays,
+  },
+];
+
+const bottomItems = [
+  {
+    title: "Configurações",
+    url: "/home",
+    icon: Settings,
   },
 ];
 
@@ -66,24 +73,52 @@ export function AppSidebar() {
     });
   };
   return (
-    <Sidebar>
-      <SidebarHeader className="flex items-center justify-center border-b bg-white">
-        <Image src="/logo.png" alt="TNT Concursos" width={136} height={25} />
+    <Sidebar className="text-primary-foreground border-border border-r">
+      <SidebarHeader className="border-border bg-primary border-b p-4">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-3 transition-opacity duration-200 group-data-[collapsible=icon]:opacity-0">
+            <span className="bg-accent text-accent-foreground inline-flex h-10 w-10 items-center justify-center rounded-lg">
+              <Trophy className="h-5 w-5" />
+            </span>
+            <div className="overflow-hidden">
+              <p className="text-sm leading-tight font-bold">TN Concursos</p>
+            </div>
+          </div>
+          <SidebarTrigger className="bg-primary-foreground/10 hover:bg-primary-foreground/20 text-primary-foreground h-8 w-8" />
+        </div>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-[#1e40af]">
         <SidebarGroup>
-          <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="rounded-lg">
-              {items.map((item) => (
-                <SidebarMenuItem className="gap-4" key={item.title}>
-                  <SidebarMenuButton asChild isActive={pathname === item.url}>
+            <SidebarMenu className="gap-1">
+              {mainItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname === item.url}
+                    className={cn(
+                      "hover:bg-primary-foreground/10 hover:text-primary-foreground h-11 rounded-lg px-3 text-white transition-transform duration-200 hover:translate-x-1",
+                      item.highlight &&
+                        "bg-primary-foreground/10 text-primary-foreground",
+                      "data-[active=true]:bg-accent data-[active=true]:text-accent-foreground data-[active=true]:shadow-sm",
+                    )}
+                  >
                     <Link
-                      className="text-accent-foreground bg-amber-500 p-1"
                       href={item.url}
+                      className="group-data-[collapsible=icon]:justify-center"
                     >
                       <item.icon />
                       <span>{item.title}</span>
+                      {item.badge && (
+                        <SidebarMenuBadge className="bg-accent text-accent-foreground rounded-full px-2">
+                          {item.badge}
+                        </SidebarMenuBadge>
+                      )}
+                      {item.highlight && (
+                        <SidebarMenuBadge className="bg-accent text-accent-foreground rounded-full px-2">
+                          NEW
+                        </SidebarMenuBadge>
+                      )}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -98,6 +133,9 @@ export function AppSidebar() {
               <SidebarMenuButton
                 asChild
                 isActive={pathname === "/subscription"}
+                className={cn(
+                  "hover:bg-primary-foreground/10 hover:text-primary-foreground h-11 rounded-lg px-3 text-white transition-transform duration-200 hover:translate-x-1",
+                )}
               >
                 <Link href="/subscription">
                   <Gem />
@@ -108,20 +146,32 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="border-border border-t bg-[#1e40af]">
         <SidebarMenu>
+          {bottomItems.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton
+                asChild
+                isActive={pathname === item.url}
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground h-11 rounded-lg px-3 transition-transform duration-200 hover:translate-x-1"
+              >
+                <Link href={item.url}>
+                  <item.icon />
+                  <span>{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+          <SidebarSeparator className="bg-primary-foreground/20 my-1" />
           <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton size="lg">
-                  <LogOut />
-                  Sair
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={handleSignOut}></DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <SidebarMenuButton
+              size="default"
+              onClick={handleSignOut}
+              className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground h-11 rounded-lg px-3 transition-transform duration-200 hover:translate-x-1"
+            >
+              <LogOut />
+              <span>Sair</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
