@@ -1,4 +1,6 @@
-export const disciplines = [
+export type FilterItem = string[];
+
+export const disciplines: FilterItem = [
   "Português",
   "Matemática",
   "Informática",
@@ -8,7 +10,7 @@ export const disciplines = [
   "Direito Penal",
 ];
 
-export const years = [
+export const years: FilterItem = [
   "2017",
   "2018",
   "2019",
@@ -20,9 +22,16 @@ export const years = [
   "2025",
 ];
 
-export const jurys = ["CESPE", "FCC", "FGV", "VUNESP", "IBFC", "IBAM"];
+export const jurys: FilterItem = [
+  "CESPE",
+  "FCC",
+  "FGV",
+  "VUNESP",
+  "IBFC",
+  "IBAM",
+];
 
-export const organs = [
+export const organs: FilterItem = [
   "Prefeitura Municipal de Salvador",
   "Prefeitura Municipal de Feira de Santana",
   "Prefeitura Municipal de Camaçari",
@@ -30,7 +39,7 @@ export const organs = [
   "Prefeitura Municipal de Ilhéus",
 ];
 
-export const positions = [
+export const positions: FilterItem = [
   "Assistente Administrativo",
   "Auxiliar Administrativo",
   "Técnico de TI",
