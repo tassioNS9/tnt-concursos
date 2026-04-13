@@ -8,7 +8,18 @@ import {
 } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
-export const AcessPeriodsPage = () => {
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
+export const AcessPeriodsPage = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session?.user) {
+    redirect("/authentication");
+  }
+
   return (
     <div className="mx-auto flex w-full flex-col space-y-6 px-4 py-40 md:w-full lg:w-[80%] lg:px-20">
       <h1 className="text-2xl font-bold tracking-tight text-gray-900">

@@ -3,7 +3,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 import { AppSidebar } from "./components/app-sidebar";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -13,7 +14,14 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const data = await auth.api.getSession({
+    headers: await headers(),
+  });
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -27,18 +35,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <DropdownMenu>
                 <DropdownMenuTrigger className="w-full">
                   <AvatarImage
-                    src="https://github.com/shadcn.png"
+                    src={data?.user.image || "user_default_profile.png"}
                     alt="shadcn"
                   />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuItem>Meus dados</DropdownMenuItem>
+                  <DropdownMenuItem>Meus pedidos</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </Avatar>
             <span className="text-1xl text-dark-var-3-color ml-2 font-semibold">
-              Olá, Usuário!
+              Olá, {data?.user.name || "Usuário"}
             </span>
           </div>
         </div>
