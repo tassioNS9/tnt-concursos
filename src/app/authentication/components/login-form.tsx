@@ -17,13 +17,11 @@ import { FormControl, FormMessage } from "@/components/ui/form";
 import { FormItem, FormLabel } from "@/components/ui/form";
 import { Form, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 const loginSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .min(1, { message: "E-mail é obrigatório" })
-    .email({ message: "E-mail inválido" }),
+  email: z.string().trim().min(1, { message: "E-mail é obrigatório" }),
   password: z
     .string()
     .trim()
@@ -31,6 +29,8 @@ const loginSchema = z.object({
 });
 
 const LoginForm = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -39,10 +39,35 @@ const LoginForm = () => {
     },
   });
 
+  const onSubmit = async (values: z.infer<typeof loginSchema>) => {
+    await authClient.signIn.email(
+      {
+        email: values.email,
+        password: values.password,
+      },
+      {
+        onSuccess: () => {
+          router.push("/home");
+        },
+        onError: () => {
+          toast.error("E-mail ou senha inválidos.");
+        },
+      },
+    );
+  };
+
+  const handleGoogleLogin = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/home",
+      scopes: ["email", "profile"],
+    });
+  };
+
   return (
     <Card>
       <Form {...form}>
-        <form className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <CardHeader>
             <CardTitle>Login</CardTitle>
             <CardDescription>Faça login para continuar.</CardDescription>
@@ -84,7 +109,12 @@ const LoginForm = () => {
               <Button type="submit" className="w-full">
                 Entrar
               </Button>
-              <Button variant="outline" className="w-full" type="button">
+              <Button
+                onClick={handleGoogleLogin}
+                variant="outline"
+                className="w-full"
+                type="button"
+              >
                 <svg viewBox="0 0 24 24" className="mr-2 h-4 w-4">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

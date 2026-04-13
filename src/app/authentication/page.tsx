@@ -1,18 +1,12 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { BookOpen, Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { BookOpen } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import LoginForm from "./components/login-form";
+import SignUpForm from "./components/sign-up-form";
 
-const AuthenticationPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
-
+const AuthenticationPage = async () => {
   return (
     <main className="flex min-h-screen">
       <section className="bg-primary relative hidden w-1/2 overflow-hidden lg:flex">
@@ -62,78 +56,18 @@ const AuthenticationPage = () => {
             </p>
           </header>
 
-          <form className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="email">E-mail</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="seu@email.com"
-                autoComplete="email"
-                className="h-12 transition-all duration-200 focus-visible:scale-[1.01]"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="password">Senha</Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  autoComplete="current-password"
-                  className="h-12 pr-11 transition-all duration-200 focus-visible:scale-[1.01]"
-                />
-                <Button
-                  type="button"
-                  size="icon-sm"
-                  variant="ghost"
-                  onClick={() => setShowPassword((current) => !current)}
-                  className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2"
-                  aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-                >
-                  {showPassword ? (
-                    <EyeOff className="size-5" />
-                  ) : (
-                    <Eye className="size-5" />
-                  )}
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <Label
-                htmlFor="remember-me"
-                className="text-muted-foreground font-normal"
-              >
-                <Checkbox id="remember-me" />
-                Lembrar-me
-              </Label>
-              <Link
-                href="#"
-                className="text-primary hover:text-primary/80 text-sm transition-colors duration-200"
-              >
-                Esqueci minha senha
-              </Link>
-            </div>
-
-            <Button
-              type="submit"
-              className="bg-accent text-accent-foreground hover:bg-accent/90 h-12 w-full shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0"
-            >
-              Entrar
-            </Button>
-
-            <p className="text-muted-foreground text-center">
-              Não tem uma conta?{" "}
-              <Link
-                href="#"
-                className="text-accent hover:text-accent/80 font-semibold transition-colors duration-200"
-              >
-                Cadastre-se gratuitamente
-              </Link>
-            </p>
-          </form>
+          <Tabs defaultValue="login" className="flex w-full md:w-110">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="login">Login</TabsTrigger>
+              <TabsTrigger value="register">Criar conta</TabsTrigger>
+            </TabsList>
+            <TabsContent value="login">
+              <LoginForm />
+            </TabsContent>
+            <TabsContent value="register">
+              <SignUpForm />
+            </TabsContent>
+          </Tabs>
 
           <footer className="mt-8 border-t pt-6">
             <p className="text-muted-foreground text-center text-xs">
