@@ -1,13 +1,17 @@
 "use client";
+
 import { FiltersQuestions } from "./components/filters-questions";
 import { useFiltroStore } from "@/app/store/filterQuestions";
 import QuestionItem from "./components/question-item";
-
 import { Alternative } from "../../generated/prisma/client";
 import { PaginationComponent } from "./components/pagination-component";
 import SelectLimit from "./components/select-limit";
 import { useGetQuestions } from "@/app/actions/useQuestions";
 import SelectOrderByYear from "./components/select-order-by-year";
+import { authClient } from "@/lib/auth-client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 type Question = {
   id: string;
   statement: string;
@@ -20,6 +24,15 @@ type Question = {
 };
 
 export default function Home() {
+  const session = authClient.useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!session.data) {
+      return router.push("/authentication");
+    }
+  }, [session.data, router]);
+
   const { data, isLoading, error } = useGetQuestions();
 
   const page = useFiltroStore((state) => state.page);
