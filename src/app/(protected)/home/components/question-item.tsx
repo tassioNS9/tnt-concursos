@@ -4,6 +4,7 @@ import { Alternative } from "../../../generated/prisma/client";
 import { Button } from "@/components/ui/button";
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Chat } from "./chat";
 
 interface QuestionItemProps {
   question: {
@@ -112,6 +113,8 @@ const QuestionItem = ({ question }: QuestionItemProps) => {
         >
           Ver Resposta
         </Button>
+
+        <Chat questionId={question.id} />
       </div>
     </div>
   );
