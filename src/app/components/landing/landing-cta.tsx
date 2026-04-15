@@ -2,7 +2,7 @@ import { Brain, BookOpen, Trophy, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { landingFooterColumns, landingSteps } from "@/app/constants/landing";
-
+import Link from "next/link";
 const stepIcons = [BookOpen, Brain, Target, Trophy];
 
 export default function LandingCta() {
@@ -61,9 +61,11 @@ export default function LandingCta() {
             Junte-se a milhares de candidatos que ja estao usando IA para
             estudar de forma mais eficiente e conquistar a aprovacao.
           </p>
-          <Button className="bg-foreground-orange text-primary-foreground hover:bg-foreground-orange/90 rounded-lg px-12 py-5 text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl">
-            Criar conta gratuita
-          </Button>
+          <Link href="/authentication">
+            <Button className="bg-foreground-orange text-primary-foreground hover:bg-foreground-orange/90 rounded-lg px-12 py-5 text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl">
+              Criar conta gratuita
+            </Button>
+          </Link>
           <p className="text-muted-foreground mt-4 text-sm">
             Sem cartao de credito • Acesso imediato • Cancele quando quiser
           </p>
@@ -91,12 +93,12 @@ export default function LandingCta() {
                 <ul className="text-primary-foreground/80 space-y-2 text-sm">
                   {column.links.map((link) => (
                     <li key={link}>
-                      <a
+                      <Link
                         href="#"
                         className="hover:text-foreground-orange transition-colors"
                       >
                         {link}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

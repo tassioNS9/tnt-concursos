@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function LandingHero() {
   return (
@@ -24,15 +24,19 @@ export default function LandingHero() {
             </div>
 
             <div className="animate-fade-in-up flex flex-col gap-4 sm:flex-row">
-              <Button className="bg-foreground-orange text-primary-foreground hover:bg-foreground-orange/90 h-12 rounded-lg px-8 transition-transform duration-300 hover:scale-105">
-                Comecar agora gratuitamente
-              </Button>
-              <Button
-                variant="outline"
-                className="border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 h-12 rounded-lg px-8 backdrop-blur-sm transition-transform duration-300 hover:scale-105"
-              >
-                Ver planos
-              </Button>
+              <Link href="/authentication">
+                <Button className="bg-foreground-orange text-primary-foreground hover:bg-foreground-orange/90 h-12 rounded-lg px-8 transition-transform duration-300 hover:scale-105">
+                  Comecar agora gratuitamente
+                </Button>
+              </Link>
+              <Link href="/plans">
+                <Button
+                  variant="outline"
+                  className="border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 h-12 rounded-lg px-8 backdrop-blur-sm transition-transform duration-300 hover:scale-105"
+                >
+                  Ver planos
+                </Button>
+              </Link>
             </div>
           </div>
 

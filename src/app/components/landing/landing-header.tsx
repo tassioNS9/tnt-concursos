@@ -29,15 +29,19 @@ export default function LandingHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            className="text-primary-foreground/90 hover:text-foreground-orange hidden transition-colors hover:cursor-pointer hover:bg-transparent md:inline-flex"
-          >
-            Entrar
-          </Button>
-          <Button className="bg-foreground-orange text-primary-foreground hover:bg-foreground-orange/90 rounded-lg px-6 transition-transform duration-300 hover:scale-105 hover:cursor-pointer">
-            Comecar
-          </Button>
+          <Link href="/authentication">
+            <Button
+              variant="ghost"
+              className="text-primary-foreground/90 hover:text-foreground-orange hidden transition-colors hover:cursor-pointer hover:bg-transparent md:inline-flex"
+            >
+              Entrar
+            </Button>
+          </Link>
+          <Link href="/authentication">
+            <Button className="bg-foreground-orange text-primary-foreground hover:bg-foreground-orange/90 rounded-lg px-6 transition-transform duration-300 hover:scale-105 hover:cursor-pointer">
+              Cadastrar
+            </Button>
+          </Link>
         </div>
       </div>
     </header>
