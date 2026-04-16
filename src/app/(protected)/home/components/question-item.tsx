@@ -78,9 +78,10 @@ const QuestionItem = ({ question }: QuestionItemProps) => {
           </span>{" "}
         </h3>
       </div>
-      <p className="text-dark-var-1-color flex text-start font-semibold">
-        {question.statement}
-      </p>
+      <p
+        className="text-dark-var-1-color flex flex-col text-start font-semibold"
+        dangerouslySetInnerHTML={{ __html: question.statement }}
+      />
       <div className="flex flex-col gap-2">
         {question?.alternatives.map((alternative) => (
           <Button
@@ -94,7 +95,10 @@ const QuestionItem = ({ question }: QuestionItemProps) => {
               {alternative.letter}
             </div>
 
-            <p className="flex text-start">{alternative.text}</p>
+            <p
+              className="flex text-start"
+              dangerouslySetInnerHTML={{ __html: alternative.text }}
+            />
           </Button>
         ))}
       </div>
