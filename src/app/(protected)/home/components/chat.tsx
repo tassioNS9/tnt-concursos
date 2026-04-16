@@ -79,8 +79,8 @@ export const Chat = ({ questionId }: ChatMessageProps) => {
         </Button>
       </DialogTrigger>
       <DialogContent className="h-[85vh] w-[calc(100vw-1.5rem)] max-w-3xl p-0 sm:h-[90vh]">
-        <DialogHeader className="border-border border-b px-4 py-3 sm:px-5 sm:py-4">
-          <DialogTitle>Agente Questão.IA</DialogTitle>
+        <DialogHeader className="border-border text-primary border-b px-4 py-3 sm:px-5 sm:py-4">
+          <DialogTitle>Agente IA</DialogTitle>
         </DialogHeader>
 
         <ScrollArea className="h-[calc(85vh-61px)] w-full sm:h-[calc(90vh-69px)]">

@@ -24,7 +24,7 @@ export const ChatMessage = ({
       <div className="flex w-full flex-col gap-3 px-5 pt-6 pb-0">
         <div className="border-border flex w-full flex-col gap-2.5 rounded-xl border p-3">
           <div className="flex w-full items-center justify-center gap-2.5">
-            <p className="grow basis-0 text-center text-sm leading-[1.4] font-normal text-red-500">
+            <p className="text-foreground-orange grow basis-0 text-center text-sm leading-[1.4] font-normal">
               {content}
             </p>
           </div>
@@ -43,7 +43,7 @@ export const ChatMessage = ({
         <div className="border-border flex size-8 shrink-0 items-center justify-center rounded-full border bg-[rgba(48,92,58,0.12)]">
           <Bot className="text-primary size-3.5" />
         </div>
-        <div className="max-w-full text-sm leading-[1.4] font-normal break-words whitespace-normal text-red-500">
+        <div className="text-foreground-orange max-w-full text-sm leading-[1.4] font-normal break-words whitespace-normal">
           <Streamdown>{content}</Streamdown>
         </div>
       </div>
