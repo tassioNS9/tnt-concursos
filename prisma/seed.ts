@@ -21,6 +21,14 @@ async function main() {
       explanation:
         "O verbo 'haver' no sentido de existir é impessoal e deve permanecer no singular.",
       type: QuestionType.MULTIPLE4,
+      alternatives: {
+        create: buildAlternatives("1001", [
+          {letter:"A", text: "Fazem dois anos que ele saiu.", isCorrect: false },
+          { letter:"B", text: "Houveram muitos erros na prova.", isCorrect: true },
+          { letter:"C", text: "Existem várias opções.", isCorrect: false },
+          { letter:"D", text: "Precisa-se de funcionários.", correct: false },
+        ]),
+      },
     },
     {
       id: "1002",

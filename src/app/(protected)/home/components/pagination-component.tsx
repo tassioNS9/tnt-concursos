@@ -1,3 +1,5 @@
+"use client";
+
 import { usePagination } from "@/app/actions/usePagination";
 import {
   Pagination,
