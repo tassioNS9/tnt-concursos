@@ -96,7 +96,7 @@ const QuestionItem = ({ question }: QuestionItemProps) => {
             </div>
 
             <p
-              className="flex text-start"
+              className="text-dark-var-1-color flex w-[90%] text-start"
               dangerouslySetInnerHTML={{ __html: alternative.text }}
             />
           </Button>
