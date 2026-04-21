@@ -1,6 +1,6 @@
 "use client";
 
-import { Alternative } from "../../../generated/prisma/client";
+import { Alternative } from "@/app/generated/prisma/client";
 import { Button } from "@/components/ui/button";
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -118,7 +118,7 @@ const QuestionItem = ({ question }: QuestionItemProps) => {
           Ver Resposta
         </Button>
 
-        <Chat questionId={question.id} />
+        <Chat questionId={question.id} isAnswerRevealed={isAnswerRevealed} />
       </div>
     </div>
   );

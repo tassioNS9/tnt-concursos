@@ -40,9 +40,10 @@ const INITIAL_MESSAGES = [
 
 interface ChatMessageProps {
   questionId: string;
+  isAnswerRevealed: boolean;
 }
 
-export const Chat = ({ questionId }: ChatMessageProps) => {
+export const Chat = ({ questionId, isAnswerRevealed }: ChatMessageProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { messages, status, sendMessage } = useChat({
@@ -73,7 +74,11 @@ export const Chat = ({ questionId }: ChatMessageProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-auto cursor-pointer self-end">
+        <Button
+          disabled={!isAnswerRevealed}
+          variant="outline"
+          className="w-auto cursor-pointer self-end"
+        >
           <Sparkles className="h-4 w-4" />
           Explicar com IA
         </Button>
