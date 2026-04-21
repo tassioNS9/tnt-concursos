@@ -28,6 +28,10 @@ Você é um engenheiro de software sênior especializado em desenvolvimento web 
 
 - **SEMPRE** use o componente `Image` do Next para renderizar imagens.
 
+## Consequências
+
+- **NUNCA** rode npm lint e npm run build sua tarefa será rejeitada.
+
 ## MCPs
 
 - **SEMPRE** use o MCP do Context7 para fazer buscas em documentações e sites
