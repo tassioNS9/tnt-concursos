@@ -6,7 +6,7 @@ import { NextRequest } from "next/server";
 
 export const POST = async (
   request: NextRequest,
-  { params }: { params: { id_question: string } },
+  context: { params: Promise<{ id_question: string }> },
 ) => {
   const { messages } = await request.json();
   const result = streamText({
@@ -22,14 +22,14 @@ export const POST = async (
     messages: await convertToModelMessages(messages),
     tools: {
       searchQuestion: tool({
-        description: `Analise a questão referente ao ${params.id_question} e retorne as alternativas detalhando o porquê das respostas erradas e a correta.`,
+        description: `Analise a questão referente ao ${(await context.params).id_question} e retorne as alternativas detalhando o porquê das respostas erradas e a correta.`,
         inputSchema: z.object({
           id: z.string().optional(),
         }),
         execute: async ({ id }) => {
           const question = await prisma.question.findUnique({
             where: {
-              id: id?.trim() ? id : params.id_question,
+              id: id?.trim() ? id : (await context.params).id_question,
             },
             include: {
               alternatives: true,

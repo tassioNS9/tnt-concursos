@@ -2,10 +2,10 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest } from "next/server";
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
-    const { id } = await params;
+    const { id } = await context.params;
     console.log(id, "id");
     const alternative = await prisma.alternative.findFirst({
       where: {
