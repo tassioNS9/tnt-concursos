@@ -1,36 +1,173 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TNT Concursos
 
-## Getting Started
+Plataforma web para resolução de questões de concursos públicos com integração de Inteligência Artificial para auxiliar os estudantes durante o processo de aprendizagem.
 
-First, run the development server:
+Além da resolução das questões, a IA fornece explicações detalhadas sobre cada alternativa, justificando tanto as respostas corretas quanto as incorretas, tornando o estudo mais eficiente e didático.
+
+---
+
+## Tecnologias
+
+### Front-end
+- React
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Shadcn UI
+
+### Gerenciamento de Estado
+- Zustand
+
+### Requisições e Cache
+- TanStack Query (React Query)
+
+### Back-end
+- Node.js
+- API REST
+
+### Banco de Dados
+- PostgreSQL
+- Drizzle ORM
+
+### Autenticação
+- JWT
+
+### Inteligência Artificial
+- Integração com APIs de IA para:
+  - Explicação das alternativas corretas;
+  - Justificativa das alternativas incorretas;
+  - Auxílio ao aprendizado.
+
+---
+
+# Arquitetura
+
+O projeto segue uma arquitetura em camadas, buscando desacoplamento entre interface, regras de negócio e acesso aos dados.
+
+Principais padrões utilizados:
+
+- Componentização com React
+- Separação entre UI e lógica de negócio
+- Hooks customizados
+- Repository Pattern para acesso aos dados
+- Services para regras de negócio
+- DTOs para comunicação entre camadas
+- Gerenciamento global de estado com Zustand
+- Cache e sincronização de dados com TanStack Query
+
+---
+
+# Estrutura do Projeto
+
+```
+src/
+ ├── app/
+ ├── components/
+ ├── hooks/
+ ├── services/
+ ├── repositories/
+ ├── lib/
+ ├── store/
+ ├── types/
+ └── utils/
+```
+
+---
+
+# Configuração
+
+## 1. Clone o projeto
+
+```bash
+git clone <repositorio>
+```
+
+## 2. Instale as dependências
+
+```bash
+pnpm install
+```
+
+ou
+
+```bash
+npm install
+```
+
+---
+
+## 3. Configure as variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto.
+
+Exemplo:
+
+```env
+DATABASE_URL=
+
+JWT_SECRET=
+
+OPENAI_API_KEY=
+
+NEXT_PUBLIC_API_URL=
+```
+
+> Ajuste os valores conforme seu ambiente.
+
+---
+
+## 4. Banco de Dados
+
+Gerar as migrations:
+
+```bash
+pnpm drizzle-kit generate
+```
+
+Executar as migrations:
+
+```bash
+pnpm drizzle-kit migrate
+```
+
+---
+
+## 5. Executar o projeto
+
+Modo desenvolvimento:
+
+```bash
+pnpm dev
+```
+
+ou
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Funcionalidades
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Cadastro e autenticação de usuários
+- Resolução de questões
+- Correção automática
+- Explicação da resposta correta
+- Explicação das alternativas incorretas
+- Histórico de resolução
+- Sistema de filtros por disciplina, banca e assunto
+- Integração com Inteligência Artificial
+- Interface responsiva
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+# Objetivo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+O TNT Concursos tem como objetivo oferecer uma plataforma moderna para preparação de concursos públicos, combinando um banco de questões com recursos de Inteligência Artificial para fornecer explicações completas e facilitar o processo de aprendizagem dos estudantes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+# Licença
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Projeto desenvolvido para fins de estudo e demonstração técnica.
