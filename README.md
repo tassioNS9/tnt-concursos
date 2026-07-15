@@ -170,4 +170,4 @@ O TNT Concursos tem como objetivo oferecer uma plataforma moderna para preparaç
 
 # Licença
 
-Projeto desenvolvido para fins de estudo e demonstração técnica.
+Projeto desenvolvido para fins de estudo e demonstração técnicaa.
